@@ -1,0 +1,11 @@
+.private/
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pcap
+*.pcapng
+id_rsa*
+id_ed25519*
+tmp*/

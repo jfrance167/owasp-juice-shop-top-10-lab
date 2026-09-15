@@ -1,0 +1,30 @@
+name: Repository policy
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Validate security documentation and evidence hygiene
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s SECURITY.md
+          grep -Fq "## Security Notice" README.md
+          grep -Fq "Vulnerable by Design" README.md
+          grep -Fq "bkimminich/juice-shop:v20.2.0" README.md
+          grep -Eiq "not (a )?production|do not deploy.*production|must not.*production" README.md
+          unzip -t "OWASP Juice Shop Top 10 2025 Mapping.docx"
+          if git ls-files | grep -Eiq '\.(key|pem|pcap|pcapng)$'; then
+            echo "Sensitive key or packet-capture artifact is tracked."
+            exit 1
+          fi
