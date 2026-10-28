@@ -53,3 +53,7 @@ owasp-juice-shop-top-10-lab/
 ```
 
 Source, fixtures and historical reports serve different purposes; follow the setup and safety boundaries above before running any code.
+
+## License
+
+Original contributions are licensed under [MIT](LICENSE). See [licensing scope](LICENSING.md) for third-party exclusions.
